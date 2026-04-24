@@ -1,4 +1,4 @@
-# ✋ Touchless Control
+# Touchless Control
 
 Control your computer using hand gestures and voice — no mouse or keyboard required.
 
@@ -51,12 +51,12 @@ The system uses a real-time pipeline:
 
 | Gesture                  | Action      |
 | ------------------------ | ----------- |
-| ☝️ Index finger          | Move cursor |
-| 🤏 Pinch (thumb + index) | Left click  |
-| 👍 Thumb + middle        | Right click |
-| ✊ Fist                   | Drag        |
-| ✌️ Index + middle        | Scroll      |
-| ✋ Open hand              | Pause       |
+| Index finger             | Move cursor |
+| Pinch (thumb + index)    | Left click  |
+| Thumb + middle           | Right click |
+| Fist                     | Drag        |
+| Index + middle           | Scroll      |
+| Open hand                | Pause       |
 
 ---
 
@@ -65,6 +65,7 @@ The system uses a real-time pipeline:
 * Webcam
 * Good lighting conditions
 * Python 3.10 / 3.11 (recommended)
+* Activate with source .venv/bin/activate (macOS)
 
 ---
 
