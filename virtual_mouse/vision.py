@@ -1,14 +1,17 @@
 import cv2
 import mediapipe as mp
-from config import config
 
 class Vision:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
-        self.hands = mp.solutions.hands.Hands(max_num_hands=1)
+
+        self.hands = mp.solutions.hands.Hands(
+            max_num_hands=1,
+            min_detection_confidence=0.7
+        )
         self.drawer = mp.solutions.drawing_utils
 
-    def read_frame(self):
+    def get_frame(self):
         success, frame = self.cap.read()
         if not success:
             return None, None

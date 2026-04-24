@@ -1,8 +1,4 @@
-import threading
-import gui
-import main
+from app import App
 
-def start_main():
-    main.run()
-
-gui.start()
+if __name__ == "__main__":
+    App().run()
