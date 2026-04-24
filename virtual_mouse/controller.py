@@ -21,3 +21,6 @@ class Controller:
         elif not is_fist and self.dragging:
             pyautogui.mouseUp()
             self.dragging = False
+
+    def scroll(self, amount):
+        pyautogui.scroll(amount)
