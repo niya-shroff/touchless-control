@@ -59,9 +59,9 @@ with st.sidebar:
     st.subheader("Controls")
     
     col1, col2 = st.columns(2)
-    if col1.button("▶️ Start", use_container_width=True):
+    if col1.button("▶️ Start", width='stretch'):
         st.session_state.run = True
-    if col2.button("⏹️ Stop", use_container_width=True):
+    if col2.button("⏹️ Stop", width='stretch'):
         st.session_state.run = False
 
 # Layout
@@ -102,11 +102,26 @@ if st.session_state.run:
     frame = cv2.flip(frame, 1)
     h, w, _ = frame.shape
     
+    # FPS Calculation
+    fps = 0
+    if 'last_time' in st.session_state:
+        current_time = time.time()
+        fps = 1.0 / (current_time - st.session_state.last_time + 1e-5)
+        st.session_state.last_time = current_time
+    else:
+        st.session_state.last_time = time.time()
+
     # Process frame to get landmarks
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = vision.hands.process(rgb)
     
     current_gesture = "None"
+    stats_data = {
+        "FPS": f"{fps:.1f}",
+        "Hand Coords": "N/A",
+        "Screen Coords": "N/A",
+        "Finger States": "[0, 0, 0, 0, 0]"
+    }
     
     if result.multi_hand_landmarks:
         for hand_landmarks in result.multi_hand_landmarks:
@@ -129,6 +144,11 @@ if st.session_state.run:
             screen_y = np.interp(y, (100, h - 100), (0, 1080))
             
             sx, sy = smooth(screen_x, screen_y)
+            
+            # Update Stats
+            stats_data["Hand Coords"] = f"({x}, {y})"
+            stats_data["Screen Coords"] = f"({int(sx)}, {int(sy)})"
+            stats_data["Finger States"] = str(fingers)
             
             # Only point index finger -> Move
             if fingers[1:] == [1, 0, 0, 0]:
@@ -165,10 +185,21 @@ if st.session_state.run:
                         
     # Convert frame for Streamlit
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame_placeholder.image(frame, channels="RGB", use_container_width=True)
+    frame_placeholder.image(frame, channels="RGB", width='stretch')
     
-    # Update Alerts
+    # Update Alerts & Stats
     alert_placeholder.markdown(f'<div class="alert-box">Status: {current_gesture}</div>', unsafe_allow_html=True)
+    
+    stats_placeholder.markdown(f"""
+    <div style="background-color: #1e2126; padding: 15px; border-radius: 8px;">
+        <h3 style="margin-top: 0; color: #a777e3;">📊 Live Data</h3>
+        <p style="margin: 5px 0;"><b>FPS:</b> {stats_data['FPS']}</p>
+        <p style="margin: 5px 0;"><b>Hand (X, Y):</b> {stats_data['Hand Coords']}</p>
+        <p style="margin: 5px 0;"><b>Mouse (X, Y):</b> {stats_data['Screen Coords']}</p>
+        <p style="margin: 5px 0;"><b>Finger States:</b> <code style="background-color: #0e1117;">{stats_data['Finger States']}</code></p>
+        <p style="font-size: 0.75rem; color: #888; margin-top: 5px;">[Thumb, Index, Middle, Ring, Pinky] (1=Up, 0=Down)</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Trigger a rerun to get the next frame
     time.sleep(0.01)
@@ -178,5 +209,8 @@ else:
     if "cap" in st.session_state:
         st.session_state.cap.release()
         del st.session_state.cap
+    if "last_time" in st.session_state:
+        del st.session_state.last_time
     frame_placeholder.info("Click 'Start' in the sidebar to begin camera capture.")
     alert_placeholder.empty()
+    stats_placeholder.empty()
