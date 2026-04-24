@@ -4,6 +4,8 @@ Control your computer using hand gestures and voice — no mouse or keyboard req
 
 **Touchless Control** is a real-time computer vision system that uses your webcam to track hand movements and convert them into mouse and system inputs. Now fully powered by a modern **Streamlit Web Dashboard**, you can configure settings and monitor gesture status in real-time.
 
+<img width="800" height="455" alt="ezgif-4cc0666a0ad2ac23" src="https://github.com/user-attachments/assets/613cf67b-b64a-4ced-a0b1-69ca00bcf0fa" />
+
 ---
 
 ## Features
