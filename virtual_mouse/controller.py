@@ -1,7 +1,7 @@
 import pyautogui
 import time
 
-class MouseController:
+class Controller:
     def __init__(self):
         self.last_click = 0
         self.dragging = False
