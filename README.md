@@ -2,85 +2,95 @@
 
 Control your computer using hand gestures and voice — no mouse or keyboard required.
 
-**Touchless Control** is a real-time computer vision system that uses your webcam to track hand movements and convert them into mouse and system inputs. It also integrates voice recognition for hands-free typing.
+**Touchless Control** is a real-time computer vision system that uses your webcam to track hand movements and convert them into mouse and system inputs. Now fully powered by a modern **Streamlit Web Dashboard**, you can configure settings and monitor gesture status in real-time.
 
 ---
 
 ## Features
 
-### Gesture-Based Mouse Control
+### Streamlit Web Dashboard
+* Beautiful, modern dark-themed user interface.
+* Real-time webcam feed with landmark overlays.
+* Live status alerts for recognized gestures.
+* Sidebar configuration panel to tweak smoothing and toggle specific gestures on/off.
 
-* Move cursor with your index finger
-* Left click using pinch gesture
-* Right click with finger combination
-* Drag & drop using fist gesture
-* Scroll using two fingers
-* Pause control with open hand
+### Gesture-Based Mouse Control
+* **Move Cursor:** Point with your index finger.
+* **Left Click:** Pinch your thumb and index finger together.
+* **Drag & Drop:** Make a closed fist.
+* **Scroll:** Hold up your index and middle fingers (move hand up/down to scroll).
 
 ### Voice Typing (Coming / In Progress)
-
-* Speak to type anywhere on your system
-* Hands-free text input
-* Future: voice commands (open apps, shortcuts)
+* Speak to type anywhere on your system.
+* Hands-free text input.
+* Future: voice commands (open apps, shortcuts).
 
 ---
 
 ## How It Works
 
-The system uses a real-time pipeline:
+The system uses a real-time pipeline embedded inside a local web app:
 
-1. **Webcam Input** → Captured using OpenCV
-2. **Hand Tracking** → Powered by MediaPipe (21 landmark detection)
-3. **Gesture Recognition** → Finger state + distance calculations
-4. **System Control** → PyAutoGUI maps gestures to OS actions
+1. **Web Dashboard** → Streamlit handles the UI, controls, and rendering.
+2. **Webcam Input** → Captured asynchronously using OpenCV.
+3. **Hand Tracking** → Powered by MediaPipe (21 landmark detection).
+4. **Robust Gesture Recognition** → Math and geometry calculations map finger states (intentionally ignoring the thumb for stability during camera flips).
+5. **System Control** → PyAutoGUI maps gestures to native OS actions.
 
 ---
 
 ## Tech Stack
 
-* Python
-* OpenCV
-* MediaPipe
-* PyAutoGUI
-* NumPy
-* (Planned) SpeechRecognition / Pyttsx3
+* Python 3.11
+* Streamlit (Web UI)
+* OpenCV (Computer Vision)
+* MediaPipe (Hand Tracking)
+* PyAutoGUI (OS Automation)
+* NumPy (Data Manipulation)
 
 ---
 
 ## Gesture Controls
 
-| Gesture                  | Action      |
-| ------------------------ | ----------- |
-| Index finger             | Move cursor |
-| Pinch (thumb + index)    | Left click  |
-| Thumb + middle           | Right click |
-| Fist                     | Drag        |
-| Index + middle           | Scroll      |
-| Open hand                | Pause       |
+| Gesture                  | Action                        |
+| ------------------------ | ----------------------------- |
+| **Index finger up**      | Move cursor                   |
+| **Pinch (thumb + index)**| Left click                    |
+| **Fist**                 | Click & Drag                  |
+| **Index + middle up**    | Scroll (Move hand up or down) |
 
 ---
 
-## Requirements
+## Installation & Usage
 
-* Webcam
-* Good lighting conditions
-* Python 3.10 / 3.11 (recommended)
-* Activate with source .venv/bin/activate (macOS)
+### Prerequisites
+* A working Webcam.
+* Good lighting conditions.
+* Python 3.11 recommended.
+
+### Setup
+1. Clone this repository.
+2. Activate your virtual environment: `source .venv/bin/activate`
+3. Install dependencies: `pip install -r reqs.txt`
+
+### Running the App
+Launch the web dashboard with a single command:
+```bash
+python run_app.py
+```
+*(This automatically runs the Streamlit server on your local machine)*
 
 ---
 
-##  Future Improvements
+## Future Improvements
 
-* Voice command system (open apps, shortcuts)
-* Custom gesture mapping
-* GUI interface for settings
-* Multi-hand tracking
-* Performance optimization
+* Voice command system (open apps, shortcuts).
+* Custom gesture mapping.
+* Multi-hand tracking.
+* Performance optimization.
 
 ---
 
 ## Inspiration
 
 Inspired by the idea of replacing traditional input devices with natural human interaction — moving toward a more intuitive human-computer interface.
-
----

@@ -131,7 +131,7 @@ if st.session_state.run:
             sx, sy = smooth(screen_x, screen_y)
             
             # Only point index finger -> Move
-            if fingers == [0, 1, 0, 0, 0]:
+            if fingers[1:] == [1, 0, 0, 0]:
                 controller.move(sx, sy)
                 current_gesture = "Moving 🖱️"
                 
@@ -141,8 +141,8 @@ if st.session_state.run:
                     controller.click()
                     current_gesture = "Clicking 👆"
                     
-            # Fist -> Drag
-            elif fingers == [0, 0, 0, 0, 0]:
+            # Fist -> Drag (all 4 fingers down)
+            elif fingers[1:] == [0, 0, 0, 0]:
                 if config.ENABLE_DRAG:
                     controller.drag(True)
                     current_gesture = "Dragging ✊"
@@ -150,8 +150,8 @@ if st.session_state.run:
                 if config.ENABLE_DRAG:
                     controller.drag(False)
                     
-            # Two fingers -> Scroll
-            if fingers == [0, 1, 1, 0, 0] and not is_pinch(lm):
+            # Two fingers -> Scroll (Index and Middle up)
+            if fingers[1:] == [1, 1, 0, 0] and not is_pinch(lm):
                 if config.ENABLE_SCROLL:
                     # Simple scroll based on y position of hand
                     if y < h/3:
@@ -165,7 +165,7 @@ if st.session_state.run:
                         
     # Convert frame for Streamlit
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame_placeholder.image(frame, channels="RGB", use_column_width=True)
+    frame_placeholder.image(frame, channels="RGB", use_container_width=True)
     
     # Update Alerts
     alert_placeholder.markdown(f'<div class="alert-box">Status: {current_gesture}</div>', unsafe_allow_html=True)
