@@ -39,19 +39,6 @@ The system uses a real-time pipeline embedded inside a local web app:
 4. **Robust Gesture Recognition** → Math and geometry calculations map finger states (intentionally ignoring the thumb for stability during camera flips).
 5. **System Control** → PyAutoGUI maps gestures to native OS actions.
 
----
-
-## Tech Stack
-
-* Python 3.11
-* Streamlit (Web UI)
-* OpenCV (Computer Vision)
-* MediaPipe (Hand Tracking)
-* PyAutoGUI (OS Automation)
-* NumPy (Data Manipulation)
-
----
-
 ## Gesture Controls
 
 | Gesture                  | Action                        |
@@ -65,11 +52,6 @@ The system uses a real-time pipeline embedded inside a local web app:
 
 ## Installation & Usage
 
-### Prerequisites
-* A working Webcam.
-* Good lighting conditions.
-* Python 3.11 recommended.
-
 ### Setup
 1. Clone this repository.
 2. Activate your virtual environment: `source .venv/bin/activate`
@@ -80,8 +62,6 @@ Launch the web dashboard with a single command:
 ```bash
 python run_app.py
 ```
-*(This automatically runs the Streamlit server on your local machine)*
-
 ---
 
 ## Future Improvements
@@ -95,4 +75,4 @@ python run_app.py
 
 ## Inspiration
 
-Inspired by the idea of replacing traditional input devices with natural human interaction — moving toward a more intuitive human-computer interface.
+Inspired by the idea of replacing traditional input devices with natural human interaction, moving toward a more intuitive human-computer interface.
