@@ -62,14 +62,6 @@ Launch the web dashboard with a single command:
 ```bash
 python run_app.py
 ```
----
-
-## Future Improvements
-
-* Voice command system (open apps, shortcuts).
-* Custom gesture mapping.
-* Multi-hand tracking.
-* Performance optimization.
 
 ---
 
