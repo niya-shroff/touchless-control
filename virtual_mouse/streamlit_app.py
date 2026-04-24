@@ -2,6 +2,7 @@ import streamlit as st
 import cv2
 import numpy as np
 import time
+import base64
 from vision import Vision
 from controller import Controller
 from gestures import get_fingers, is_pinch
@@ -183,9 +184,11 @@ if st.session_state.run:
                     else:
                         current_gesture = "Scroll Ready ↕️"
                         
-    # Convert frame for Streamlit
+    # Convert frame for Streamlit to prevent MediaFileHandler errors
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame_placeholder.image(frame, channels="RGB", width='stretch')
+    _, buffer = cv2.imencode('.jpg', cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
+    frame_b64 = base64.b64encode(buffer).decode("utf-8")
+    frame_placeholder.markdown(f'<img src="data:image/jpeg;base64,{frame_b64}" width="100%" style="border-radius: 8px;">', unsafe_allow_html=True)
     
     # Update Alerts & Stats
     alert_placeholder.markdown(f'<div class="alert-box">Status: {current_gesture}</div>', unsafe_allow_html=True)
