@@ -47,40 +47,6 @@ The system uses a real-time pipeline:
 
 ---
 
-## Installation
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/YOUR_USERNAME/touchless-control.git
-cd touchless-control
-```
-
-### 2. Create virtual environment
-
-```bash
-python3.11 -m venv venv
-source venv/bin/activate   # Mac/Linux
-```
-
-### 3. Install dependencies
-
-```bash
-pip install opencv-python mediapipe==0.10.9 pyautogui numpy
-```
-
----
-
-## Run the App
-
-```bash
-python ai_mouse.py
-```
-
-Press **Q** to quit.
-
----
-
 ## Gesture Controls
 
 | Gesture                  | Action      |
