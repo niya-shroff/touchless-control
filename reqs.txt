@@ -3,3 +3,5 @@ mediapipe==0.10.9
 pyautogui
 numpy
 streamlit
+streamlit-webrtc
+streamlit-webrtc
